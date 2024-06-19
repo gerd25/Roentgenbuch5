@@ -86,12 +86,12 @@ position: left;
     <tr></tr>
    <tr>
 
-    <th style=' width:180'>PatientID</th>
-    <th style=' width:180'>Patient</th>
-    <th style=' width:180'>Geburtsdatum</th>
-    <th style=' width:180'>Geschlecht</th>
-    <th style=' width:180'>Bildparameter</th>
-    <th style=' width:180'>Hersteller</th>
+    <th style=' width:180 '>PatientID</th>
+    <th style=' width:180 '>Patient</th>
+    <th style=' width:180 '>Geburtsdatum</th>
+    <th style=' width:180 '>Geschlecht</th>
+    <th style=' width:180 '>Bildparameter</th>
+    <th style=' width:180 '>Hersteller</th>
    </tr>
 
 
@@ -122,9 +122,10 @@ $result = pg_query($zugang, "SELECT * FROM datenaustausch");
        while ($row = pg_fetch_row($result)) {
      // echo "phpid: $row[0]  patid: $row[1]";
        //echo "<br />\n";
-      $PID = $row[1];
+     // $PID = $row[1];
      // echo $PID;
  }
+       $PID ="9706";
        //  echo $PID;
           $_SESSION["newpaID"]=$PID;
 
@@ -161,8 +162,8 @@ $result = pg_query($zugang, "UPDATE public.datenaustausch SET confirm= 'O', comm
 
 $postData = array(
     'Level' => 'patients',
-   // 'Query' => array('PatientID' =>  $PID),
-    'Query' => array('PatientID' =>  '9706'),
+    'Query' => array('PatientID' =>  $PID),
+   // 'Query' => array('PatientID' =>  '798'),
     //'title' => 'A new orthanc post',
     //'content' => 'With <b>exciting</b> content...'
 );
@@ -334,7 +335,7 @@ $response = curl_exec($curl);
              $response = curl_exec($curl);
              $decodedData = json_decode($response, true);
          //  var_dump($decodedData);
-        //   if( $decodedData != Null) {                                        0
+        //   if( $decodedData != Null) {
           // $fileG = $decodedData['FileSize'];
           // $fileU = $decodedData['FileUuid'];
           // $IDnr = $decodedData['ID'];

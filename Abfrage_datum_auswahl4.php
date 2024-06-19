@@ -53,9 +53,9 @@
 
         // $patientID=$_SESSION["x"]
        //  echo  $_SESSION["newpaID"];
-         // $peng =  $_SESSION["newpaID"];
-        $peng = "9706";
-          // echo $peng;
+          $peng =  $_SESSION["newpaID"];
+       // $peng = "9706";
+           echo $peng;
           //$modalities2 = "IO";
  // Datum Übergabe
            // $modalities2 = "IO";
@@ -207,7 +207,9 @@ $responseData = json_decode($response, TRUE);
      // var_dump($decodedData);
        // echo $decodedData;
       //######################################################
-     //####################################versuch daten zu speichern#############################
+     //####################################Versuch daten zu exportieren#############################
+     //########################################################################################################
+
 
     // curl_setopt($curl, CURLOPT_URL, "http://localhost:8042/studies/d1ddbf1c-8c86d1c1-5e5c9ce1-389e8365-a69f3228/archive");
      curl_setopt($curl, CURLOPT_URL,"http://localhost:8042/studies/$studie/archive");
@@ -217,6 +219,10 @@ $responseData = json_decode($response, TRUE);
 
 
       //versuch daten zu speichern#############################
+      //##################################################################################################################
+     //##################################################################################################
+
+
 
      //if($decodedData != Null) {
 
@@ -234,7 +240,7 @@ $responseData = json_decode($response, TRUE);
                    {$STudyZeit = "keine Daten";}
           if(isset($decodedData['PatientMainDicomTags']['PatientID'])){ $PatientenID = $decodedData['PatientMainDicomTags']['PatientID']; } else
                   {$PatientenID = "keine Daten";}
-          if(isset($decodedData['PatientMainDicomTags']['PatientName'])){echo $Patientenname = $decodedData['PatientMainDicomTags']['PatientName']; } else
+          if(isset($decodedData['PatientMainDicomTags']['PatientName'])){ $Patientenname = $decodedData['PatientMainDicomTags']['PatientName']; } else
                   {$Patientenname = "keine Daten";}
           if(isset($decodedData['PatientMainDicomTags']['PatientBirthDate'])){ $patientGeb= $decodedData['PatientMainDicomTags']['PatientBirthDate'];} else
                   {$patientGeb = "keine Daten";}
@@ -295,6 +301,9 @@ $responseData = json_decode($response, TRUE);
                     {$study = "keine Daten";}
 
 
+
+
+
   //#############################################################################################################
   //#######################                    Abfrage modalies
   //#######################################################################################################
@@ -303,7 +312,7 @@ $responseData = json_decode($response, TRUE);
 
 
 
-     <td> <?php  echo $StudDate; ?> </td>
+     <td center> <?php  echo $StudDate; ?> </td>
      <td> <?php echo $PatientenID; ?></td>
      <td> <?php echo $Patientenname; ?></td>
      <td> <?php echo $patientGeb; ?></td>
@@ -326,25 +335,30 @@ $responseData = json_decode($response, TRUE);
                //$study = $decodedData['ParentStudy'];
                      $stati = $decodedData['Status'];
                      $typ = $decodedData['Type'];
-                       // if($decodedData != Null) {
-                       //      $Instanzen = $decodedData['Instances'];} else {die ( "keine Daten");}
+                    if($decodedData != Null) {
+                          $Instanzen = $decodedData['Instances'];} else {die ( "keine Daten");}
 
-                         If($modali == $modalities2)  {
-                            // if(isset($decodedData['Instances'])){ $Instanzen = $decodedData['Instances']; }
-                                      // else {$Instanzen = "keine Daten";}
+
+
+                       If($modali == $modalities2 and $PatientenID == $peng)  {
+
+                             if(isset($decodedData['Instances'])){ $Instanzen = $decodedData['Instances']; }
+                                       else {$Instanzen = "keine Daten";}
                                       $Instanzen = $decodedData['Instances'];
                                         var_dump($Instanzen);
-                         } else { echo "keine Daten";}
 
 
 
-                        if ($null == $modalities2) {
 
-                            if(isset($decodedData['Instances'])){ $Instanzen = $decodedData['Instances']; }
+
+
+                          if ($null == $modalities2 and $PatientenID == $peng ) {
+
+                              if(isset($decodedData['Instances'])){ $Instanzen = $decodedData['Instances']; }
                               else {$Instanzen = "keine Daten";}
-                              //$Instanzen = $decodedData['Instances'];
-                             //  var_dump($Instanzen);
-                          } else { echo "keine Daten";}
+                              $Instanzen = $decodedData['Instances'];
+                               var_dump($Instanzen);
+
 
 
 
@@ -364,7 +378,7 @@ $responseData = json_decode($response, TRUE);
           //$fileU = $decodedData['FileUuid'];
           //$IDnr = $decodedData['ID'];
           //$IDIserie =  $decodedData['IndexInSeries'];
-          // if( $PAIDent =  $decodedData['0010,0020']['Value'] == $patientID){
+          // if( $PAIDent =  $decodedData['0010,0020']['Value'] == $patientID)//{
          if(isset($decodedData['0020,0012']['Value'])){$aquiNR = $decodedData['0020,0012']['Value'];} else
             {$aquiNR = "keine Daten";}
          if(isset($decodedData['0008,0012']['Value'])){$creatdate = $decodedData['0008,0012']['Value'];} else
@@ -425,27 +439,17 @@ $responseData = json_decode($response, TRUE);
         echo "</table>\n";
         echo "</div>";
 
-               }
+              // }
          }
-       // }
+
+            } else { echo "keine Daten";}
+
+         } else { echo "keine Daten";}
+
+
+        }
 
           }
-
-
-       ?>
-
-
-
-
-
-
-
-       <?php
-
-
-
-
-
 
 
 
